@@ -19,10 +19,9 @@ nltk.download('snowball_data')
 nltk.download('universal_tagset')
 nltk.download('averaged_perceptron_tagger')
 '''
-
-
 def preproces_data(path: str):
 
+    #usuniecie informacji o licencji oraz mowie końcowej
     def preambels_endings_remover(text_to_process: str) -> str:
         sub_string1 = " ***"
         sub_string2 = "*** END"
@@ -31,6 +30,7 @@ def preproces_data(path: str):
         preprocesed_file = text_to_process[index1 + len(sub_string1) + 1: index2]
         return preprocesed_file
 
+    #funkcja do badania słów
     def pos_tag_transform(word: str) -> str:
         tag_temp = pos_tag([word], tagset='universal')[0][1]
         if tag_temp == 'VERB':
@@ -43,6 +43,7 @@ def preproces_data(path: str):
             tag = wordnet.NOUN
         return tag
 
+    #główna funkcja do pozbywania się stopwordsów, wybierania jedynie słów
     def tokenizer(preprocesed_text: str) -> List[str]:
         primar_tokens = word_tokenize(preprocesed_text)
         english_stops = stopwords.words('english')
@@ -58,10 +59,7 @@ def preproces_data(path: str):
         return preprocesed_tokens
 
     def submain(raw_text: str) -> List[str]:
-
         preprocesed_text = preambels_endings_remover(raw_text)
-        #except ValueError:
-        #    preprocesed_text = raw_text
         preprocesed_tokens = tokenizer(preprocesed_text)
         return preprocesed_tokens
 
