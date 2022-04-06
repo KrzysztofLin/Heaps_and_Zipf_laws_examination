@@ -11,26 +11,25 @@ class HeapsLaw:
         self.tokens = tokens
 
     def heaps_parameters_calculation(self):
-        print(self.terms)
-        print(self.tokens)
         b = 0
         count = 0
         for i in range(len(self.terms) - 1, 1, -1):
-            pot_b = log(self.terms[i] / self.terms[i - 1], 10) / log(self.tokens[i] / self.tokens[i - 1], 10)
-            print(pot_b)
-            if pot_b < 1.5:
-                b += pot_b
-                count += 1
+            try:
+                pot_b = log(self.terms[i] / self.terms[i - 1], 10) / log(self.tokens[i] / self.tokens[i - 1], 10)
+                if pot_b < 1.5:
+                    b += pot_b
+                    count += 1
+            except ZeroDivisionError:
+                pot_b = 0
 
         b = b / count
-
         log_k = (log(mean(self.terms), 10) - log(mean(self.tokens), 10) * b)
-        print(log_k)
-        print(pow(10, 1.64))
-        print(pow(10, log_k))
         return b, pow(10, log_k)
 
     def heaps_graph(self):
+        plt.xlabel('liczba tokenów')
+        plt.ylabel('liczba termów')
+        plt.title('wykres_heapsa_empiryczny')
         plt.plot(self.tokens, self.terms, label='wykres_heapsa_empiryczny')
         plt.show()
 
@@ -49,7 +48,7 @@ class HeapsLaw:
             log_T_emp.append(log(self.tokens[element]))
         plt.xlabel('log T')
         plt.ylabel('log M')
-        plt.title('Zalezność teoretyczna z praktyczna')
+        plt.title('Heaps Zalezność teoretyczna z praktyczna')
         plt.scatter(log_M, log_T, label='wykres_heapsa_teoretyczny')
         plt.scatter(log_M_emp, log_T_emp, label='wykres_heapsa_empiryczny')
         plt.show()
@@ -70,25 +69,23 @@ class ZipfLaw:
 
     #function used to calculate c, based on frequency and rank
     def zipf_C_calculator(self) -> float:
-        # cf - frequency
-        # c = cf/i
         for index, frequency in enumerate(self.frequency_dict.values()):
-            self.c += frequency / (index + 1)
+            self.c += frequency * (index + 1)
             self.log_index.append(log(index + 1))
             self.log_frequency.append(log(frequency))
-        print(log(self.c))
+        self.c = self.c/len(self.frequency_dict.values())
         return self.c
 
     def zipf_graph(self):
         log_cf = []
         log_rank = []
-        for i in range(1, 1000):
+        for i in range(1, 1000):#round(self.log_frequency[-1])):
             log_rank.append(log(i))
             log_cf.append(log(self.c) - log(i))
 
         plt.xlabel('log10 rank')
         plt.ylabel('log10 cf')
-        plt.title('Zalezność teoretyczna z praktyczna')
+        plt.title('Zipf Zalezność teoretyczna z praktyczna')
         plt.plot(log_rank, log_cf, label='wykres_zipfa_teoretyczny')
         plt.plot(self.log_frequency, self.log_index, label='wykres_zipfa_empiryczny')
         plt.show()
