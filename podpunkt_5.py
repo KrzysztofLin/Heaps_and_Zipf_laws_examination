@@ -6,6 +6,8 @@ from random import choice
 from collections import Counter
 from typing import List
 
+
+# simple generator
 def abcdef_generator() -> str:
     text = ''
     for i in range(1000):
@@ -13,6 +15,7 @@ def abcdef_generator() -> str:
     return text
 
 
+# simple data preprocessing, getting rid of blank signs
 def preprocess_data(text: List[str]) -> List[str]:
     final_text = []
     for word in text:
@@ -20,6 +23,7 @@ def preprocess_data(text: List[str]) -> List[str]:
            final_text.append(word)
     return final_text
 
+# analogical function to the presented in main_HZ
 def generate_multiple_functions_tokens_terms()-> tuple[pd.DataFrame, List[int], List[int]]:
     text_dict = {}
     token_number_list = []

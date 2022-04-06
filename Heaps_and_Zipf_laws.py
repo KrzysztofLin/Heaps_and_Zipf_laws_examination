@@ -5,17 +5,18 @@ from typing import List, Dict
 import pandas as pd
 
 
+
 class HeapsLaw:
-    def __init__(self, terms: List[int], tokens: List[int]):
+    def __init__(self, terms: List[int], tokens: List[int]): # initial function, list of numbers of terms and tokens has been used
         self.terms = terms
         self.tokens = tokens
 
-    def heaps_parameters_calculation(self):
+    def heaps_parameters_calculation(self): # calculation of b and k
         b = 0
         count = 0
         for i in range(len(self.terms) - 1, 1, -1):
             try:
-                pot_b = log(self.terms[i] / self.terms[i - 1], 10) / log(self.tokens[i] / self.tokens[i - 1], 10)
+                pot_b = log(self.terms[i] / self.terms[i - 1], 10) / log(self.tokens[i] / self.tokens[i - 1], 10) # formula applied from scriptbook
                 if pot_b < 1.5:
                     b += pot_b
                     count += 1
@@ -26,6 +27,7 @@ class HeapsLaw:
         log_k = (log(mean(self.terms), 10) - log(mean(self.tokens), 10) * b)
         return b, pow(10, log_k)
 
+    # heaps graph generator
     def heaps_graph(self):
         plt.xlabel('liczba tokenów')
         plt.ylabel('liczba termów')
@@ -33,6 +35,7 @@ class HeapsLaw:
         plt.plot(self.tokens, self.terms, label='wykres_heapsa_empiryczny')
         plt.show()
 
+    # heaps graph generator to compare values
     def check_teoretical_dependency(self, b: float, k: float):
         log_M = []
         log_T = []
@@ -70,16 +73,17 @@ class ZipfLaw:
     #function used to calculate c, based on frequency and rank
     def zipf_C_calculator(self) -> float:
         for index, frequency in enumerate(self.frequency_dict.values()):
-            self.c += frequency * (index + 1)
+            self.c += frequency * (index + 1)           # formulas applied from book
             self.log_index.append(log(index + 1))
             self.log_frequency.append(log(frequency))
         self.c = self.c/len(self.frequency_dict.values())
         return self.c
 
+    # zipf graph generator to compare values
     def zipf_graph(self):
         log_cf = []
         log_rank = []
-        for i in range(1, 1000):#round(self.log_frequency[-1])):
+        for i in range(1, 10000):#round(self.log_frequency[-1])):
             log_rank.append(log(i))
             log_cf.append(log(self.c) - log(i))
 
