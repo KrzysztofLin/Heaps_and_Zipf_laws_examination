@@ -12,6 +12,7 @@ def harvest_data(
     """ Function used to preprocessed loaded data.
     Create terms, tokens and vector matrix for tests with Heaps and Zipf law."""
 
+    global data_frame
     file_dict = {}
     token_number_list = []
     terms_number_list = []
@@ -28,4 +29,5 @@ def harvest_data(
         data_frame = pd.DataFrame(data=file_dict).T.fillna(0)
         terms_number_list.append(len(data_frame.columns))
         token_number_list.append(data_frame.values.sum())
+
     return data_frame, sorted(terms_number_list), sorted(token_number_list)

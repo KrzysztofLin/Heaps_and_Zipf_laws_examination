@@ -6,10 +6,9 @@ from settings import PATH
 
 def get_files() -> Tuple[List[str], List[str]]:
     """Function get names of files and their content"""
-
     files_names = []
     files_content = []
-    for file_name in os.listdir():
+    for file_name in os.listdir(PATH):
         if file_name.endswith(".txt"):
             files_names.append(file_name)
             file_path = f"{PATH}/{file_name}"

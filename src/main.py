@@ -5,9 +5,9 @@ from Heaps_and_Zipf_laws import HeapsLaw, ZipfLaw
 
 def main():
     files_names, files_content = get_files()
+
     data_frame, list_with_terms_numbers, list_with_token_numbers = harvest_data(
-        files_names, files_content
-    )
+        files_names, files_content)
     heaps_law = HeapsLaw(list_with_terms_numbers, list_with_token_numbers)
 
     heaps_law.heaps_graph()
