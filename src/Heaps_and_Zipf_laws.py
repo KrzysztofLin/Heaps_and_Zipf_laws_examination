@@ -6,21 +6,26 @@ import pandas as pd
 
 
 class HeapsLaw:
-    def __init__(self, terms: List[int], tokens: List[int]): # initial function, list of numbers of terms and tokens has been used
+    def __init__(self, terms: List[int], tokens: List[int]):
         self.terms = terms
         self.tokens = tokens
 
-    def heaps_parameters_calculation(self): # calculation of b and k
+    def heaps_parameters_calculation(self):
+        ''' funtion used to calculate following parameters:
+        b -
+        k -
+        parameters will be used to check dependency between tokens and terms
+        '''
         b: float = 0
         count: int = 0
         for i in range(len(self.terms) - 1, 1, -1):
             try:
-                pot_b = log(self.terms[i] / self.terms[i - 1], 10) / log(self.tokens[i] / self.tokens[i - 1], 10) # formula applied from scriptbook
+                pot_b = log(self.terms[i] / self.terms[i - 1], 10) / log(self.tokens[i] / self.tokens[i - 1], 10)
                 if pot_b < 1.5:
                     b += pot_b
                     count += 1
             except ZeroDivisionError:
-                pot_b = 0
+                pass
 
         b = b / count
         log_k = (log(mean(self.terms), 10) - log(mean(self.tokens), 10) * b)
