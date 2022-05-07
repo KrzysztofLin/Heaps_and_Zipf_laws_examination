@@ -11,10 +11,10 @@ class HeapsLaw:
         self.tokens = tokens
 
     def heaps_parameters_calculation(self):
-        ''' funtion used to calculate following parameters:
-        b -
-        k -
-        parameters will be used to check dependency between tokens and terms
+        ''' to check Heaps law it is nessesary to get empirical parameters:
+        b - values should be in interval 0.4 - 0.6,
+        k - values should be in interval 30 - 100.
+        Parameters will be used to check dependency between tokens and terms.
         '''
         b: float = 0
         count: int = 0
@@ -33,10 +33,10 @@ class HeapsLaw:
 
     # heaps graph generator
     def heaps_graph(self):
-        plt.xlabel('liczba tokenów')
-        plt.ylabel('liczba termów')
-        plt.title('wykres_heapsa_empiryczny')
-        plt.plot(self.tokens, self.terms, label='wykres_heapsa_empiryczny')
+        plt.xlabel('number of tokens')
+        plt.ylabel('number of terms')
+        plt.title('empirical heaps graph')
+        plt.plot(self.tokens, self.terms, label='empirical heaps graph')
         plt.show()
 
     # heaps graph generator to compare values
