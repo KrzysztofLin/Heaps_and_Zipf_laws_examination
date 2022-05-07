@@ -44,9 +44,8 @@ class HeapsLaw:
         plt.plot(self.tokens, self.terms, label="empirical heaps graph")
         plt.show()
 
-    # heaps graph generator to compare values
     def check_theoretical_dependency(self, b: float, k: float):
-        """# graph visualising differences between theoretical (created based on b and k) and collected values"""
+        """graph visualising differences between theoretical (created based on b and k) and collected values"""
         log_M = []
         log_T = []
         log_M_emp = []
@@ -61,23 +60,15 @@ class HeapsLaw:
             log_T_emp.append(log(self.tokens[element]))
         plt.xlabel("log T")
         plt.ylabel("log M")
-        plt.title("Heaps Zalezność teoretyczna z praktyczna")
-        plt.scatter(log_M, log_T, label="wykres_heapsa_teoretyczny")
-        plt.scatter(log_M_emp, log_T_emp, label="wykres_heapsa_empiryczny")
+        plt.title("Heaps empirical vs theoretical dependecy")
+        plt.scatter(log_M, log_T, label="theoretical heaps graph")
+        plt.scatter(log_M_emp, log_T_emp, label="empirical heaps graph")
         plt.show()
 
 
-def zipf_df_tranform_to_frequency_dict(df: pd.DataFrame) -> Dict[str, int]:
-    frequency_dict = df.sum(axis=0)
-    frequency_dict = dict(
-        sorted(frequency_dict.items(), key=lambda item: item[1], reverse=True)
-    )
-    return frequency_dict
-
-
 class ZipfLaw:
-    def __init__(self, df: pd.DataFrame):
-        self.frequency_dict = zipf_df_tranform_to_frequency_dict(df)
+    def __init__(self, data_frame: pd.DataFrame):
+        self.frequency_dict = _zipf_df_transform_to_frequency_dict(data_frame)
         self.log_index = []
         self.log_frequency = []
         self.c = 0
@@ -86,7 +77,7 @@ class ZipfLaw:
         """function used to calculate c, based on frequency and rank"""
 
         for index, frequency in enumerate(self.frequency_dict.values()):
-            self.c += frequency * (index + 1)  # formulas applied from book
+            self.c += frequency * (index + 1)
             self.log_index.append(log(index + 1))
             self.log_frequency.append(log(frequency))
         self.c = self.c / len(self.frequency_dict.values())
@@ -106,3 +97,11 @@ class ZipfLaw:
         plt.plot(log_rank, log_cf, label="wykres_zipfa_teoretyczny")
         plt.plot(self.log_frequency, self.log_index, label="wykres_zipfa_empiryczny")
         plt.show()
+
+
+def _zipf_df_transform_to_frequency_dict(df: pd.DataFrame) -> Dict[str, int]:
+    frequency_dict = df.sum(axis=0)
+    frequency_dict = dict(
+        sorted(frequency_dict.items(), key=lambda item: item[1], reverse=True)
+    )
+    return frequency_dict
