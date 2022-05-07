@@ -4,8 +4,9 @@ from collections import Counter
 import pandas as pd
 
 
-# most important program's function, data is collected, preprocessed, divided and prepared for testing with Heaps, Zipf laws
 def harvest_data(files_names, files_content: List[str]) -> tuple[pd.DataFrame, List[int], List[int]]:
+    ''' Function used to preprocessed loaded data.
+     Create terms, tokens and vector matrix for tests with Heaps and Zipf law. '''
     file_dict = {}
     token_number_list = []
     terms_number_list = []
