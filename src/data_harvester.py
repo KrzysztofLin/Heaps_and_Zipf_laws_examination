@@ -1,10 +1,10 @@
-from typing import List
-from data_preproceser import preprocess_data
+from typing import List, Tuple
+from data_preprocesser import preprocess_data
 from collections import Counter
 import pandas as pd
 
 
-def harvest_data(files_names, files_content: List[str]) -> tuple[pd.DataFrame, List[int], List[int]]:
+def harvest_data(files_names, files_content: List[str]) -> Tuple[pd.DataFrame, List[int], List[int]]:
     ''' Function used to preprocessed loaded data.
      Create terms, tokens and vector matrix for tests with Heaps and Zipf law. '''
     file_dict = {}

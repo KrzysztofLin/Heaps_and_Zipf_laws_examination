@@ -12,6 +12,7 @@ typing = ""
 pandas = "^1.4.2"
 matplotlib = "^3.5.2"
 numpy = "^1.22.3"
+nltk = "^3.7"
 
 
 [build-system]

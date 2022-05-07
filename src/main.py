@@ -1,9 +1,9 @@
 import os
 from typing import List
-from data_preproceser import preprocess_data
+from data_preprocesser import preprocess_data
 from collections import Counter
 from Heaps_and_Zipf_laws import HeapsLaw, ZipfLaw
-import thmc
+# import tqdm
 
 from data_load import get_files
 from data_harvester import harvest_data

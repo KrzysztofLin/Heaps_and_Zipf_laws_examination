@@ -1,10 +1,10 @@
 import os
 from settings import PATH
-from typing import List
+from typing import List, Tuple
 
 
 # function to get filenames, and their content
-def get_files(PATH: str) -> tuple[List[str], List[str]]:
+def get_files() -> Tuple[List[str], List[str]]:
     files_names = []
     files_content = []
     for file_name in os.listdir():
