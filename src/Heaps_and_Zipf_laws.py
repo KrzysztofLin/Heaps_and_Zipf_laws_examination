@@ -1,26 +1,31 @@
 from math import log
-from numpy import mean
+from typing import Dict, List
+
 import matplotlib.pyplot as plt
-from typing import List, Dict
 import pandas as pd
+from numpy import mean
 
 
 class HeapsLaw:
+    """Class with functions created to check Heaps' law"""
+
     def __init__(self, terms: List[int], tokens: List[int]):
         self.terms = terms
         self.tokens = tokens
 
     def heaps_parameters_calculation(self):
-        ''' to check Heaps law it is nessesary to get empirical parameters:
+        """to check Heaps law it is nessesary to get empirical parameters:
         b - values should be in interval 0.4 - 0.6,
         k - values should be in interval 30 - 100.
         Parameters will be used to check dependency between tokens and terms.
-        '''
+        """
         b: float = 0
         count: int = 0
         for i in range(len(self.terms) - 1, 1, -1):
             try:
-                pot_b = log(self.terms[i] / self.terms[i - 1], 10) / log(self.tokens[i] / self.tokens[i - 1], 10)
+                pot_b = log(self.terms[i] / self.terms[i - 1], 10) / log(
+                    self.tokens[i] / self.tokens[i - 1], 10
+                )
                 if pot_b < 1.5:
                     b += pot_b
                     count += 1
@@ -28,19 +33,20 @@ class HeapsLaw:
                 pass
 
         b = b / count
-        log_k = (log(mean(self.terms), 10) - log(mean(self.tokens), 10) * b)
+        log_k = log(mean(self.terms), 10) - log(mean(self.tokens), 10) * b
         return b, pow(10, log_k)
 
-    # heaps graph generator
     def heaps_graph(self):
-        plt.xlabel('number of tokens')
-        plt.ylabel('number of terms')
-        plt.title('empirical heaps graph')
-        plt.plot(self.tokens, self.terms, label='empirical heaps graph')
+        """'Heaps' graph visualizing data collected from documents"""
+        plt.xlabel("number of tokens")
+        plt.ylabel("number of terms")
+        plt.title("empirical heaps graph")
+        plt.plot(self.tokens, self.terms, label="empirical heaps graph")
         plt.show()
 
     # heaps graph generator to compare values
     def check_theoretical_dependency(self, b: float, k: float):
+        """# graph visualising differences between theoretical (created based on b and k) and collected values"""
         log_M = []
         log_T = []
         log_M_emp = []
@@ -53,17 +59,19 @@ class HeapsLaw:
         for element in range(len(self.terms)):
             log_M_emp.append(log(self.terms[element]))
             log_T_emp.append(log(self.tokens[element]))
-        plt.xlabel('log T')
-        plt.ylabel('log M')
-        plt.title('Heaps Zalezność teoretyczna z praktyczna')
-        plt.scatter(log_M, log_T, label='wykres_heapsa_teoretyczny')
-        plt.scatter(log_M_emp, log_T_emp, label='wykres_heapsa_empiryczny')
+        plt.xlabel("log T")
+        plt.ylabel("log M")
+        plt.title("Heaps Zalezność teoretyczna z praktyczna")
+        plt.scatter(log_M, log_T, label="wykres_heapsa_teoretyczny")
+        plt.scatter(log_M_emp, log_T_emp, label="wykres_heapsa_empiryczny")
         plt.show()
 
 
 def zipf_df_tranform_to_frequency_dict(df: pd.DataFrame) -> Dict[str, int]:
     frequency_dict = df.sum(axis=0)
-    frequency_dict = dict(sorted(frequency_dict.items(), key=lambda item: item[1], reverse=True))
+    frequency_dict = dict(
+        sorted(frequency_dict.items(), key=lambda item: item[1], reverse=True)
+    )
     return frequency_dict
 
 
@@ -74,26 +82,27 @@ class ZipfLaw:
         self.log_frequency = []
         self.c = 0
 
-    #function used to calculate c, based on frequency and rank
     def zipf_C_calculator(self) -> float:
+        """function used to calculate c, based on frequency and rank"""
+
         for index, frequency in enumerate(self.frequency_dict.values()):
-            self.c += frequency * (index + 1)           # formulas applied from book
+            self.c += frequency * (index + 1)  # formulas applied from book
             self.log_index.append(log(index + 1))
             self.log_frequency.append(log(frequency))
-        self.c = self.c/len(self.frequency_dict.values())
+        self.c = self.c / len(self.frequency_dict.values())
         return self.c
 
-    # zipf graph generator to compare values
     def zipf_graph(self):
+        """graph visualising differences between theoretical (created based on c) and collected values"""
         log_cf = []
         log_rank = []
-        for i in range(1, 10000):#round(self.log_frequency[-1])):
+        for i in range(1, 10000):  # round(self.log_frequency[-1])):
             log_rank.append(log(i))
             log_cf.append(log(self.c) - log(i))
 
-        plt.xlabel('log10 rank')
-        plt.ylabel('log10 cf')
-        plt.title('Zipf Zalezność teoretyczna z praktyczna')
-        plt.plot(log_rank, log_cf, label='wykres_zipfa_teoretyczny')
-        plt.plot(self.log_frequency, self.log_index, label='wykres_zipfa_empiryczny')
+        plt.xlabel("log10 rank")
+        plt.ylabel("log10 cf")
+        plt.title("Zipf Zalezność teoretyczna z praktyczna")
+        plt.plot(log_rank, log_cf, label="wykres_zipfa_teoretyczny")
+        plt.plot(self.log_frequency, self.log_index, label="wykres_zipfa_empiryczny")
         plt.show()

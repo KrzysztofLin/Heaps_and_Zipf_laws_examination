@@ -1,10 +1,12 @@
 import os
-from settings import PATH
 from typing import List, Tuple
 
+from settings import PATH
 
-# function to get filenames, and their content
+
 def get_files() -> Tuple[List[str], List[str]]:
+    """Function get names of files and their content"""
+
     files_names = []
     files_content = []
     for file_name in os.listdir():
@@ -15,8 +17,9 @@ def get_files() -> Tuple[List[str], List[str]]:
     return files_names, files_content
 
 
-# file reader, used to read files
 def read_text_file(file_path: str) -> str:
-    with open(file_path, mode='r', encoding="utf8") as file_reader:
+    """Function used to read files from given directory"""
+
+    with open(file_path, mode="r", encoding="utf8") as file_reader:
         text_file = file_reader.read()
     return text_file
