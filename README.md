@@ -7,8 +7,9 @@ The aim of the programme was to test (and select) various classification, estima
 
 # Setup 
 1. Git clone repository.
-2. To install all nessesary dependecies type 'poetry install' (if you already have poetry installed you should just type 'poetry update') 
-3. To run the program type 'poetry run python main_wine_file.py'
+2. To install all nessesary dependecies type 'poetry install' (if you already have poetry installed on ypur machine you should just type 'poetry update')
+3. To install all nessasary libraries for nltk type: poetry run 'python -m nltk.downloader popular'
+4. To run the program type: 'poetry run python3 main.py'
 
 # Program structure
 The main file is in main. With this file you can check your document (or as many documents as you want!) and see does your document fulfill Heaps and Zip laws rules. 
