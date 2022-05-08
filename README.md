@@ -1,4 +1,4 @@
-# Heaps_and_Zipf_law_Examination
+# Heaps_and_Zipf_laws_examination
 A program designed to perform tests and experiments on a set of books (texts) using Heaps and Zipf's law. 
 
 
