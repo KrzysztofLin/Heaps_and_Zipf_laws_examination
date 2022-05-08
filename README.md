@@ -1,5 +1,5 @@
-# Text_Minning
-Alogrithm used to create Hips and Zipf graph and to check the correctness of the laws.
+# Heaps_and_Zipf_law_Examination
+A program designed to perform tests and experiments on a set of books (texts) using Heaps and Zipf's law. 
 
 
 # The goal
