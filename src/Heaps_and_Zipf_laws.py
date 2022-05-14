@@ -40,9 +40,10 @@ class HeapsLaw:
         """'Heaps' graph visualizing data collected from documents"""
         plt.xlabel("number of tokens")
         plt.ylabel("number of terms")
-        plt.title("empirical heaps graph")
+        plt.title("Empirical heaps graph")
         plt.plot(self.tokens, self.terms, label="empirical heaps graph")
         plt.show()
+        # plt.savefig("Empirical heaps graph.png")
 
     def check_theoretical_dependency(self, b: float, k: float):
         """graph visualising differences between theoretical (created based on b and k) and collected values"""
@@ -60,10 +61,11 @@ class HeapsLaw:
             log_T_emp.append(log(self.tokens[element]))
         plt.xlabel("log T")
         plt.ylabel("log M")
-        plt.title("Heaps empirical vs theoretical dependecy")
+        plt.title("Heaps empirical vs theoretical dependency")
         plt.scatter(log_M, log_T, label="theoretical heaps graph")
         plt.scatter(log_M_emp, log_T_emp, label="empirical heaps graph")
         plt.show()
+        # plt.savefig("Heaps empirical vs theoretical dependency.png")
 
 
 class ZipfLaw:
@@ -93,10 +95,11 @@ class ZipfLaw:
 
         plt.xlabel("log10 rank")
         plt.ylabel("log10 cf")
-        plt.title("Zipf Zalezność teoretyczna z praktyczna")
-        plt.plot(log_rank, log_cf, label="wykres_zipfa_teoretyczny")
-        plt.plot(self.log_frequency, self.log_index, label="wykres_zipfa_empiryczny")
+        plt.title("Zipf empirical vs theoretical dependency")
+        plt.plot(log_rank, log_cf, label="theoretical zipf graph")
+        plt.plot(self.log_frequency, self.log_index, label="theoretical zipf graph")
         plt.show()
+        # plt.savefig("Zipf empirical vs theoretical dependency.png")
 
 
 def _zipf_df_transform_to_frequency_dict(df: pd.DataFrame) -> Dict[str, int]:

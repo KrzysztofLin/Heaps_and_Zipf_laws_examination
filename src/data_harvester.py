@@ -12,7 +12,7 @@ def harvest_data(
     """ Function used to preprocessed loaded data.
     Create terms, tokens and vector matrix for tests with Heaps and Zipf law."""
 
-    global data_frame
+    data_frame = {}
     file_dict = {}
     token_number_list = []
     terms_number_list = []
