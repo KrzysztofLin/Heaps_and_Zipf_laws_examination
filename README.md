@@ -7,7 +7,7 @@ The aim of the programme was to test (and select) various classification, estima
 
 # Setup 
 1. Git clone repository.
-2. To install all nessesary dependecies type 'poetry install' (if you already have poetry installed on ypur machine you should just type 'poetry update')
+2. To install all nessesary dependecies type 'poetry install' (if you already have poetry installed on your machine you should just type 'poetry update')
 3. To install all nessasary libraries for nltk type: poetry run 'python -m nltk.downloader popular'
 4. To run the program type: 'poetry run python3 main.py' 
 
@@ -22,4 +22,8 @@ The application is created of 5 files:
 - data_preprocessing: file contating methods used to "work" with data, "to clean" them. Mainly used to prepare data for further analysis, 
 - Heaps_and_Zipf_laws.py: file contating all methods needed to calculate Heaps and Zipf parameters. Additionally methods inside class can be used to create useful graphs visualizing analized data. 
 
-Creation of the README in progress...
+# Example results
+Heaps graph:
+
+Zipf graph:
+
